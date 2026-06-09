@@ -177,40 +177,6 @@ function initMarquees() {
 }
 
 /* ════════════════════════════════════════════════
-   6. EVENTS — image flottante qui suit le curseur
-   ════════════════════════════════════════════════ */
-function initEventHover() {
-  const float = document.querySelector('#ev-float')
-  const floatImg = document.querySelector('#ev-float-img')
-  if (!float) return
-  const fx = { x: 0, y: 0 }, ft = { x: 0, y: 0 }
-
-  document.querySelectorAll('.ev').forEach((ev) => {
-    ev.addEventListener('mouseenter', () => {
-      floatImg.src = ev.dataset.img
-      gsap.to(float, { opacity: 1, scale: 1, rotate: 0, duration: 0.5, ease: 'power3.out' })
-    })
-    ev.addEventListener('mouseleave', () => {
-      gsap.to(float, { opacity: 0, scale: 0.8, rotate: -4, duration: 0.4, ease: 'power3.out' })
-    })
-  })
-  addEventListener('mousemove', (e) => { ft.x = e.clientX; ft.y = e.clientY })
-  // sécurité : on cache l'image dès qu'on scrolle (évite qu'elle reste collée entre 2 sections)
-  lenis.on('scroll', () => {
-    if (parseFloat(float.style.opacity || '0') > 0)
-      gsap.to(float, { opacity: 0, scale: 0.8, rotate: -4, duration: 0.3 })
-  })
-  function loop() {
-    fx.x += (ft.x - fx.x) * 0.12
-    fx.y += (ft.y - fx.y) * 0.12
-    float.style.left = fx.x + 'px'
-    float.style.top = fx.y + 'px'
-    requestAnimationFrame(loop)
-  }
-  loop()
-}
-
-/* ════════════════════════════════════════════════
    7. PARALLAXE galerie
    ════════════════════════════════════════════════ */
 function initParallax() {
@@ -347,7 +313,6 @@ function boot() {
   bindCursorStates()
   initSplitReveals()
   initMarquees()
-  initEventHover()
   initParallax()
   initMagnetic()
   initTransitions()

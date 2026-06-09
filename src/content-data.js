@@ -16,7 +16,7 @@ const ASSOS = {
   MSB: { logo: '/logos/presta-msb.png', invert: true },
 }
 
-export const EVENTS = (eventsYaml || []).map((e, i) => {
+export const EVENTS = (eventsYaml || []).map((e) => {
   const asso = e.asso ? ASSOS[e.asso] : null
   return {
     date: e.date,
@@ -27,7 +27,6 @@ export const EVENTS = (eventsYaml || []).map((e, i) => {
     lineup: e.lineup || [],
     logo: asso?.logo,
     logoInvert: asso?.invert === true,
-    img: `https://picsum.photos/seed/tp${i + 1}/600/750`, // image de survol (placeholder)
   }
 })
 
@@ -38,7 +37,8 @@ export const EVENTS = (eventsYaml || []).map((e, i) => {
    Conventions de nom de fichier (optionnelles) :
      • préfixe d'ordre :  "01 - ", "02_", "03." …  → gère l'ordre, n'apparaît pas
      • format          :  un nom contenant "wide" → grand format ; "tall" → portrait
-   Ex :  "01 - warehouse.jpg" , "02 - crowd wide.jpg" , "05 - 4am tall.jpg" */
+     • couleur         :  un nom contenant "color" → reste en couleur (sinon N&B)
+   Ex :  "01 - warehouse.jpg" , "02 - crowd wide color.jpg" , "05 - 4am tall.jpg" */
 const photoFiles = import.meta.glob('./photos/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP}', {
   eager: true, query: '?url', import: 'default',
 })
@@ -46,8 +46,8 @@ const photoFiles = import.meta.glob('./photos/*.{jpg,jpeg,png,webp,avif,JPG,JPEG
 const sortFr = (a, b) => a.localeCompare(b, 'fr', { numeric: true, sensitivity: 'base' })
 const cleanName = (path) =>
   path.split('/').pop().replace(/\.[^.]+$/, '')
-    .replace(/^\s*\d{1,3}\s*[-._)]\s*/, '')   // retire le préfixe d'ordre
-    .replace(/\b(wide|tall)\b/gi, '')          // retire le mot-clé de format
+    .replace(/^\s*\d{1,3}\s*[-._)]\s*/, '')        // retire le préfixe d'ordre
+    .replace(/\b(wide|tall|color)\b/gi, '')         // retire les mots-clés
     .replace(/[-_]+/g, ' ').trim()
 
 const autoGallery = Object.keys(photoFiles).sort(sortFr).map((path, i) => {
@@ -56,6 +56,7 @@ const autoGallery = Object.keys(photoFiles).sort(sortFr).map((path, i) => {
     src: photoFiles[path],
     caption: `${String(i + 1).padStart(3, '0')} · ${cleanName(path).toUpperCase()}`,
     size: low.includes('wide') ? 'wide' : low.includes('tall') ? 'tall' : 'normal',
+    color: low.includes('color'),
     parallax: i % 2 ? -0.12 : 0.14,
   }
 })

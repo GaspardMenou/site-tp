@@ -59,8 +59,13 @@ Exemple d'une date dans `content/events.yaml` :
 
 Dépose tes photos dans **`src/photos/`** : elles apparaissent toutes seules dans
 la galerie, triées par nom, optimisées et incluses au build. Conventions de nom
-(optionnelles) : un préfixe `01 - `, `02_`… gère l'ordre ; un nom contenant
-`wide` → grand format, `tall` → portrait. (Voir `src/photos/README.md`.)
+(optionnelles) :
+- préfixe `01 - `, `02_`… → gère l'ordre
+- `wide` → grand format · `tall` → portrait
+- `color` → reste en couleur (par défaut les photos sont en noir & blanc, et
+  repassent en couleur au survol ; un mix des deux donne de la profondeur)
+
+(Voir `src/photos/README.md`.)
 
 ### Les logos d'assos (prestas)
 

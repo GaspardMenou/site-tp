@@ -9,7 +9,7 @@
 #    asso     : l'asso organisatrice → ajoute son logo (voir la liste en bas)
 #    venue    : le lieu / sous-titre
 #    status   : le texte du badge (ex "BIENTÔT", "COMPLET", "RSVP")
-#    live     : true pour un badge mis en avant (vert acide)
+#    live     : true pour un badge mis en avant
 #    lineup   : la liste des DJs (optionnel)
 # ═══════════════════════════════════════════════════════════════
 

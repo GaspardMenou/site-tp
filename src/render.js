@@ -14,7 +14,7 @@ export function renderEvents(container, events) {
       ? `<span class="ev__lineup">${e.lineup.map(esc).join('&nbsp;·&nbsp;')}</span>`
       : ''
     return `
-      <li class="ev" data-img="${esc(e.img || '')}">
+      <li class="ev">
         <span class="ev__date">${esc(e.date)}</span>
         <span class="ev__main">
           <span class="ev__name">${logo}${esc(e.name)}</span>
@@ -30,9 +30,10 @@ export function renderGallery(container, items) {
   if (!container || !items?.length) return
   container.innerHTML = items.map((g, i) => {
     const mod = g.size === 'wide' ? ' gal--wide' : g.size === 'tall' ? ' gal--tall' : ''
+    const col = g.color ? ' gal--color' : ''
     const par = g.parallax ?? (i % 2 ? -0.1 : 0.14)
     return `
-      <figure class="gal${mod}" data-parallax="${par}">
+      <figure class="gal${mod}${col}" data-parallax="${par}">
         <img src="${esc(g.src)}" alt="" loading="lazy" />
         <figcaption>${esc(g.caption || '')}</figcaption>
       </figure>`

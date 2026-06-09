@@ -11,5 +11,9 @@ de fichier, optimisées et incluses au build. Rien d'autre à faire.
 - **Format** — un nom contenant `wide` → grand format (paysage),
   `tall` → portrait. Sinon format standard.
   Ex : `02 - crowd wide.jpg`, `05 - 4am tall.jpg`.
+- **Couleur** — un nom contenant `color` → la photo reste en couleur.
+  Par défaut les photos sont en noir & blanc (couleur au survol) ; en garder
+  quelques-unes en couleur ajoute de la profondeur.
+  Ex : `01 - lasers color.jpg`.
 
 Tant que ce dossier est vide, le site affiche des images de remplacement.
