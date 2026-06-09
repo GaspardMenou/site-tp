@@ -1,0 +1,33 @@
+# =====================================================================
+#  Techno Pôle — compose de PRODUCTION (déployé par Dokploy)
+#  Reprend le modèle de site-eclairage : image du registry GitLab + Traefik.
+#
+#  ⚠️ À ajuster pour le projet :
+#    - l'image (chemin du registry GitLab du Techno Pôle)
+#    - le Host(...) (domaine final du site)
+#    - les noms de routers/services (techno-pole)
+#
+#  Pour tester en local sans Dokploy : utilise plutôt `npm run dev`,
+#  ou build l'image à la main : `docker build -t techno-pole . && docker run -p 8080:80 techno-pole`
+# =====================================================================
+
+services:
+  techno-pole:
+    image: registry.ginfo.centrale-med.fr/statiques/techno-pole:latest
+    pull_policy: always
+    restart: unless-stopped
+    networks:
+      - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=dokploy-network"
+      - "traefik.http.routers.techno-pole.rule=Host(`techno-pole.asso.centrale-med.fr`)"
+      - "traefik.http.routers.techno-pole.entrypoints=websecure"
+      - "traefik.http.routers.techno-pole.tls=true"
+      - "traefik.http.routers.techno-pole.service=techno-pole-svc"
+      - "traefik.http.services.techno-pole-svc.loadbalancer.server.port=80"
+
+networks:
+  dokploy-network:
+    name: dokploy-network
+    external: true

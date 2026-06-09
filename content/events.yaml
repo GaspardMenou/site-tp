@@ -1,0 +1,59 @@
+# ═══════════════════════════════════════════════════════════════
+#  LES PROCHAINES DATES / PRESTAS
+#  Édite ce fichier pour ajouter, modifier ou retirer une soirée.
+#  Elles s'affichent dans l'ordre de ce fichier. Push → c'est en ligne.
+#
+#  Champs :
+#    date     : la date affichée (ex "13.09")
+#    name     : le nom de la soirée
+#    asso     : l'asso organisatrice → ajoute son logo (voir la liste en bas)
+#    venue    : le lieu / sous-titre
+#    status   : le texte du badge (ex "BIENTÔT", "COMPLET", "RSVP")
+#    live     : true pour un badge mis en avant (vert acide)
+#    lineup   : la liste des DJs (optionnel)
+# ═══════════════════════════════════════════════════════════════
+
+- date: "13.09"
+  name: WEI 2026
+  asso: BDE
+  venue: Week-end d'intégration
+  status: LINE-UP À VENIR
+  live: true
+  lineup:
+    - Sparco
+    - DJ Hyp
+    - Bbmix
+
+- date: "04.10"
+  name: SOIRÉE BDE
+  asso: BDE
+  venue: Centrale Méditerranée
+  status: BIENTÔT
+  lineup:
+    - DJ Scobar
+    - Loyis
+    - Nawele
+
+- date: "25.10"
+  name: MSB
+  asso: MSB
+  venue: Massilia Sun Ball
+  status: BIENTÔT
+  lineup:
+    - DJ Topette
+    - Marcø
+
+- date: "15.11"
+  name: INTERCENTRALES
+  venue: Tournée inter-écoles
+  status: BIENTÔT
+  lineup:
+    - Le H
+    - Leojuice
+    - Beethoven
+
+# ── Assos disponibles (champ "asso") → logo associé ──
+#   BDE   → logo BDE
+#   MSB   → logo Massilia Sun Ball
+#   (Pour en ajouter : dépose le logo dans public/logos/ puis déclare-le
+#    dans la table ASSOS de src/content-data.js.)

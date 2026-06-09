@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TECHNO POLE — Collectif techno · Centrale Méditerranée</title>
+  <meta name="description" content="Techno Pole — collectif de DJs et soirées techno de Centrale Méditerranée. Marseille." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800;125,900&family=Space+Grotesk:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0b'/%3E%3Ctext x='16' y='23' font-family='Arial Narrow,sans-serif' font-weight='900' font-size='20' fill='%23d6ff3f' text-anchor='middle'%3ETP%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+
+  <!-- ░░ GRAIN OVERLAY ░░ -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ░░ SCANLINES (ctOS) ░░ -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- ░░ HUD TÉLÉMÉTRIE ░░ -->
+  <div class="hud" aria-hidden="true">
+    <span class="hud__corner hud__corner--tl"></span>
+    <span class="hud__corner hud__corner--tr"></span>
+    <span class="hud__corner hud__corner--bl"></span>
+    <span class="hud__corner hud__corner--br"></span>
+    <div class="hud__readout hud__readout--l">
+      <span class="dot">●</span><span>SYS://ONLINE</span><span id="hud-coords">43.3399°N&nbsp;5.4392°E</span>
+    </div>
+    <div class="hud__readout hud__readout--r">
+      <span id="hud-bpm">BPM&nbsp;138</span><span id="hud-clock">00:00:00</span>
+    </div>
+  </div>
+
+  <!-- ░░ CUSTOM CURSOR ░░ -->
+  <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+
+  <!-- ░░ PRELOADER ░░ -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__inner">
+      <img src="/logos/tp-mark.png" alt="" class="preloader__logo" />
+      <div class="preloader__word">
+        <span>TECHNO</span><span>POLE</span>
+      </div>
+      <div class="preloader__meta">
+        <span class="preloader__loc">MARSEILLE · 43.3°N</span>
+        <span class="preloader__count" id="counter">000</span>
+      </div>
+      <div class="preloader__bar"><i id="bar"></i></div>
+    </div>
+  </div>
+
+  <!-- ░░ PAGE-TRANSITION OVERLAY ░░ -->
+  <div class="transition" id="transition" aria-hidden="true">
+    <span class="transition__mark">TP©</span>
+  </div>
+
+  <!-- ░░ NAV ░░ -->
+  <header class="nav">
+    <a href="#hero" class="nav__logo" data-link aria-label="Techno Pôle — accueil">
+      <img src="/logos/tp-mark.png" alt="Techno Pôle" />
+    </a>
+    <nav class="nav__links">
+      <a href="#events" data-link>Dates</a>
+      <a href="#gallery" data-link>Galerie</a>
+      <a href="#collective" data-link>Collectif</a>
+      <a href="#team" data-link>Le mandat</a>
+      <a href="#contact" data-link>Contact</a>
+    </nav>
+    <a href="https://www.instagram.com/techno_pole_" target="_blank" rel="noopener" class="nav__ig" data-magnetic>
+      <span>@techno_pole_</span>
+    </a>
+  </header>
+
+  <main id="smooth-content">
+
+    <!-- ░░░░░░░░░░ HERO ░░░░░░░░░░ -->
+    <section class="hero" id="hero">
+      <canvas class="hero__canvas" id="hero-canvas"></canvas>
+      <div class="hero__grid">
+        <div class="hero__tag hero__tag--tl"><span>EST. 2018</span><span>CENTRALE MÉDITERRANÉE</span></div>
+        <div class="hero__tag hero__tag--tr"><span>N° 001</span></div>
+
+        <h1 class="hero__title">
+          <span class="line glitch" data-reveal data-text="TECHNO">TECHNO</span>
+          <span class="line line--push glitch" data-reveal data-text="POLE">POLE</span>
+        </h1>
+
+        <div class="hero__tag hero__tag--bl">
+          <p data-fade>L'association des DJs de Centrale Méditerranée. On anime chaque soirée centralienne — techno, house, disco, trance, rap. Tous les genres.</p>
+        </div>
+        <div class="hero__tag hero__tag--br">
+          <a href="#events" class="scroll-cue" data-link>
+            <span>Défiler</span>
+            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 4v16M6 14l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ MARQUEE ░░ -->
+    <div class="marquee" data-marquee>
+      <div class="marquee__track">
+        <span>TECHNO POLE</span><b>✦</b><span>TECHNO · HOUSE · DISCO</span><b>✦</b><span>RAVE THE CAMPUS</span><b>✦</b><span>TRANCE · RAP</span><b>✦</b>
+        <span>TECHNO POLE</span><b>✦</b><span>TECHNO · HOUSE · DISCO</span><b>✦</b><span>RAVE THE CAMPUS</span><b>✦</b><span>TRANCE · RAP</span><b>✦</b>
+      </div>
+    </div>
+
+    <!-- ░░░░░░░░░░ EVENTS ░░░░░░░░░░ -->
+    <section class="section events" id="events">
+      <div class="section__head">
+        <span class="section__idx">01 — AGENDA</span>
+        <h2 class="section__title" data-scramble>Prochaines dates</h2>
+      </div>
+
+      <!-- généré depuis src/content-data.js (EVENTS) -->
+      <ul class="ev-list" id="ev-list"></ul>
+
+      <div class="ev-float" id="ev-float" aria-hidden="true"><img src="" alt="" id="ev-float-img" /></div>
+    </section>
+
+    <!-- ░░░░░░░░░░ GALLERY ░░░░░░░░░░ -->
+    <section class="section gallery" id="gallery">
+      <div class="section__head">
+        <span class="section__idx">02 — ARCHIVES</span>
+        <h2 class="section__title" data-scramble>Souvenirs de la nuit</h2>
+      </div>
+
+      <!-- généré depuis src/content-data.js (GALLERY = scan de src/photos/) -->
+      <div class="gal-grid"></div>
+    </section>
+
+    <!-- ░░░░░░░░░░ COLLECTIVE ░░░░░░░░░░ -->
+    <section class="section collective" id="collective">
+      <div class="section__head">
+        <span class="section__idx">03 — LE COLLECTIF</span>
+        <h2 class="section__title" data-scramble>Notre mission</h2>
+      </div>
+
+      <p class="manifesto" data-split-lines>
+        Le Techno Pôle, c'est l'association des DJs de Centrale Méditerranée. On anime
+        les soirées centraliennes — WEI, BDE, MSB, intercentrales — et on transmet le
+        mix à qui veut apprendre. Une scène, trois principes, zéro compromis.
+      </p>
+
+      <ol class="mission">
+        <li class="mission__item" data-mission>
+          <span class="mission__num">01</span>
+          <h3 class="mission__title">Le mix avant tout</h3>
+          <p class="mission__desc">On programme, on sélectionne, on travaille les transitions jusqu'au kick parfait. Notre métier, c'est les platines — la qualité avant la hype.</p>
+        </li>
+        <li class="mission__item" data-mission>
+          <span class="mission__num">02</span>
+          <h3 class="mission__title">Aucune barrière</h3>
+          <p class="mission__desc">Les plus expérimentés forment les débutants : chacun apprend à mixer et a sa chance derrière les platines lors d'un événement.</p>
+        </li>
+        <li class="mission__item" data-mission>
+          <span class="mission__num">03</span>
+          <h3 class="mission__title">Tous les genres</h3>
+          <p class="mission__desc">Techno, house, disco, trance, rap… aucune chapelle. Chaque DJ amène son style, l'asso reste ouverte à tous les sons.</p>
+        </li>
+      </ol>
+
+      <span class="section__idx section__idx--sub">PARCOURS</span>
+      <div class="timeline">
+        <article class="tl" data-fade>
+          <span class="tl__year">2018</span>
+          <h3>Naissance</h3>
+          <p>Quelques platines empruntées, une première soirée en sous-sol. Le Pole est lancé.</p>
+        </article>
+        <article class="tl" data-fade>
+          <span class="tl__year">2022</span>
+          <h3>Montée en puissance</h3>
+          <p>Résidences régulières, premiers warehouses hors campus, un line-up qui s'étoffe.</p>
+        </article>
+        <article class="tl" data-fade>
+          <span class="tl__year">NOW</span>
+          <h3>Aujourd'hui</h3>
+          <p>Un line-up qui tourne, une commu qui grandit, et toujours la même obsession : le kick parfait.</p>
+        </article>
+      </div>
+
+      <div class="partner">
+        <span class="partner__lbl">SON &amp; LUMIÈRE PAR</span>
+        <a href="https://eclairage.asso.centrale-med.fr/" target="_blank" rel="noopener" class="partner__link" data-magnetic>
+          <img src="/logos/eclairage.png" alt="" class="partner__logo" />
+          <span>EC'Lairage <span aria-hidden="true">↗</span></span>
+        </a>
+        <p class="partner__note">Nous, on s'occupe du mix. La diffusion sonore et les lights, c'est l'expertise d'EC'Lairage, l'asso de régie de Centrale Méditerranée.</p>
+      </div>
+    </section>
+
+    <!-- ░░░░░░░░░░ ÉQUIPE / LE MANDAT ░░░░░░░░░░ -->
+    <section class="section team" id="team">
+      <div class="section__head">
+        <span class="section__idx">04 — LE MANDAT 2026</span>
+        <h2 class="section__title" data-scramble>Les DJs</h2>
+      </div>
+      <div class="roster" id="roster"></div>
+    </section>
+
+    <!-- ░░░░░░░░░░ CONTACT ░░░░░░░░░░ -->
+    <section class="section contact" id="contact">
+      <span class="section__idx">05 — REJOINS-NOUS</span>
+      <a href="mailto:contact@technopole.fr?subject=Booking%20%2F%20Rejoindre%20le%20Techno%20Pole" class="contact__cta" data-link>
+        <span class="contact__cta-line" data-reveal>BOOKING</span>
+        <span class="contact__cta-line contact__cta-line--out" data-reveal>&amp; ADHÉSION</span>
+      </a>
+      <p class="contact__sub" data-fade>Un créneau, une collab, envie de mixer ou de rejoindre le collectif&nbsp;? Écris-nous.</p>
+    </section>
+
+    <!-- ░░ FOOTER ░░ -->
+    <footer class="footer">
+      <div class="marquee marquee--big" data-marquee data-dir="-1">
+        <div class="marquee__track">
+          <span>RAVE&nbsp;THE&nbsp;CAMPUS</span><b>—</b><span>TECHNO&nbsp;POLE</span><b>—</b><span>RAVE&nbsp;THE&nbsp;CAMPUS</span><b>—</b><span>TECHNO&nbsp;POLE</span><b>—</b>
+        </div>
+      </div>
+      <div class="footer__row">
+        <div class="footer__col">
+          <span class="footer__lbl">Suivre</span>
+          <a href="https://www.instagram.com/techno_pole_" target="_blank" rel="noopener" data-magnetic>Instagram ↗</a>
+        </div>
+        <div class="footer__col">
+          <span class="footer__lbl">Écrire</span>
+          <a href="mailto:contact@technopole.fr" data-magnetic>contact@technopole.fr ↗</a>
+        </div>
+        <div class="footer__col">
+          <span class="footer__lbl">Lieu</span>
+          <span>Centrale Méditerranée<br/>Marseille, FR</span>
+        </div>
+        <div class="footer__col footer__col--credit">
+          <span class="footer__lbl">©2026</span>
+          <span>Techno Pole<br/>Tous droits réservés</span>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
