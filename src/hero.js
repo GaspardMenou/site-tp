@@ -18,7 +18,7 @@ export function initHero(canvas) {
 
   const wire = new THREE.LineSegments(
     new THREE.WireframeGeometry(geo),
-    new THREE.LineBasicMaterial({ color: 0xd6ff3f, transparent: true, opacity: 0.22 })
+    new THREE.LineBasicMaterial({ color: 0x8b5cff, transparent: true, opacity: 0.22 })
   )
   scene.add(wire)
 
