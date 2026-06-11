@@ -26,29 +26,6 @@ let scrollVel = 0
 lenis.on('scroll', ({ velocity }) => { scrollVel = velocity })
 
 /* ════════════════════════════════════════════════
-   2. CUSTOM CURSOR
-   ════════════════════════════════════════════════ */
-const cursor = document.querySelector('.cursor')
-const cursorLabel = document.querySelector('.cursor__label')
-const cur = { x: innerWidth / 2, y: innerHeight / 2 }
-const tgt = { ...cur }
-addEventListener('mousemove', (e) => { tgt.x = e.clientX; tgt.y = e.clientY })
-function renderCursor() {
-  cur.x += (tgt.x - cur.x) * 0.18
-  cur.y += (tgt.y - cur.y) * 0.18
-  if (cursor) cursor.style.transform = `translate(${cur.x}px, ${cur.y}px) translate(-50%,-50%)`
-  requestAnimationFrame(renderCursor)
-}
-renderCursor()
-
-function bindCursorStates() {
-  document.querySelectorAll('a, button, [data-magnetic], .ev, .djs__list span').forEach((el) => {
-    el.addEventListener('mouseenter', () => cursor?.classList.add('is-hover'))
-    el.addEventListener('mouseleave', () => cursor?.classList.remove('is-hover'))
-  })
-}
-
-/* ════════════════════════════════════════════════
    3. PRELOADER → reveal du hero
    ════════════════════════════════════════════════ */
 function runPreloader() {
@@ -310,7 +287,6 @@ function renderContent() {
 function boot() {
   renderContent()
   prepHeroTitle()
-  bindCursorStates()
   initSplitReveals()
   initMarquees()
   initParallax()

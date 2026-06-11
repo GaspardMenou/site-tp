@@ -36,7 +36,6 @@ body {
   color: var(--fg);
   font-family: var(--ff-grotesk);
   overflow-x: hidden;
-  cursor: none;
 }
 
 ::selection { background: var(--acid); color: #000; }
@@ -127,24 +126,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   80% { transform: translate(-4px,1px); clip-path: inset(30% 0 40% 0); }
 }
 
-/* ░░ CUSTOM CURSOR ░░ */
-.cursor {
-  position: fixed; top: 0; left: 0; z-index: 9500;
-  width: 12px; height: 12px; border-radius: 50%;
-  background: var(--acid); pointer-events: none;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
-  transition: width .3s var(--ease), height .3s var(--ease), background .3s;
-}
-.cursor.is-hover { width: 64px; height: 64px; background: var(--acid); }
-.cursor.is-text  { width: 90px; height: 90px; background: var(--acid); }
-.cursor__label {
-  font-family: var(--ff-mono); font-size: 10px; color: #000;
-  text-transform: uppercase; opacity: 0; letter-spacing: .05em;
-  display: grid; place-items: center; width: 100%; height: 100%;
-}
-.cursor.is-text .cursor__label { opacity: 1; }
-@media (hover: none) { .cursor, .grain { display: none; } body { cursor: auto; } }
+@media (hover: none) { .grain { display: none; } }
 
 /* ░░ PRELOADER ░░ */
 .preloader {
@@ -265,7 +247,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   gap: clamp(1rem, 4vw, 3rem); align-items: center;
   padding: clamp(1.4rem, 3.5vw, 2.6rem) 0;
   border-bottom: 1px solid var(--line);
-  position: relative; cursor: none;
+  position: relative; cursor: pointer;
   transition: padding-left .5s var(--ease), color .4s;
 }
 .ev::before {
@@ -405,7 +387,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .djs__list span {
   font-family: var(--ff-display); font-size: clamp(1.4rem, 4vw, 3rem);
   text-transform: uppercase; -webkit-text-stroke: 1px var(--fg); color: transparent;
-  transition: color .3s; cursor: none;
+  transition: color .3s; cursor: default;
 }
 .djs__list span:hover { color: var(--acid); -webkit-text-stroke-color: var(--acid); }
 
@@ -418,7 +400,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .dj {
   background: var(--bg); padding: clamp(1.4rem, 2.5vw, 2rem);
   display: flex; flex-direction: column; min-height: 240px;
-  transition: background .4s var(--ease), color .4s; cursor: none;
+  transition: background .4s var(--ease), color .4s;
 }
 .dj:hover { background: var(--acid); color: #000; }
 .dj__top {
