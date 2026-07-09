@@ -34,7 +34,7 @@ export function renderGallery(container, items) {
     const par = g.parallax ?? (i % 2 ? -0.1 : 0.14)
     return `
       <figure class="gal${mod}${col}" data-parallax="${par}">
-        <img src="${esc(g.src)}" alt="" loading="lazy" />
+        <img src="${esc(g.src)}" alt="" loading="lazy" decoding="async" />
         <figcaption>${esc(g.caption || '')}</figcaption>
       </figure>`
   }).join('')

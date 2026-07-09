@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════
    ░░ LE SEUL FICHIER À ÉDITER POUR METTRE LE SITE À JOUR ░░
-   Chaque mandat : change les dates, le mandat, dépose les photos
-   dans public/photos/ et mets à jour les chemins ci-dessous. Push. C'est tout.
+   Chaque mandat : change les dates (content/events.yaml), le mandat (TEAM
+   ci-dessous), et dépose les photos dans src/photos/. Push. C'est tout.
    ═══════════════════════════════════════════════════════════════ */
 
 /* ░░ LES DATES / PRESTAS ░░

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://techno-pole.asso.centrale-med.fr/sitemap.xml

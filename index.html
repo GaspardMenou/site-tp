@@ -4,7 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TECHNO POLE — Asso techno · Centrale Méditerranée</title>
-  <meta name="description" content="Techno Pole — l'asso des DJs et soirées techno de Centrale Méditerranée. Marseille." />
+  <meta name="description" content="TECHNO POLE — l'asso des DJs et soirées techno de Centrale Méditerranée. Marseille." />
+  <meta name="theme-color" content="#0a0a0b" />
+
+  <!-- ░░ Open Graph / partage réseaux (Instagram, WhatsApp, Discord…) ░░ -->
+  <!-- Le domaine ci-dessous est injecté au démarrage du conteneur depuis la variable
+       SITE_URL de docker-compose.yml. En dev local, l'aperçu réseaux n'est pas testé. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="TECHNO POLE" />
+  <meta property="og:url" content="__SITE_URL__/" />
+  <meta property="og:title" content="TECHNO POLE — Asso techno · Centrale Méditerranée" />
+  <meta property="og:description" content="L'asso des DJs et soirées techno de Centrale Méditerranée. Marseille." />
+  <meta property="og:image" content="__SITE_URL__/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TECHNO POLE — Asso techno · Centrale Méditerranée" />
+  <meta name="twitter:description" content="L'asso des DJs et soirées techno de Centrale Méditerranée. Marseille." />
+  <meta name="twitter:image" content="__SITE_URL__/og.jpg" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800;125,900&family=Space+Grotesk:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -55,8 +74,8 @@
 
   <!-- ░░ NAV ░░ -->
   <header class="nav">
-    <a href="#hero" class="nav__logo" data-link aria-label="Techno Pôle — accueil">
-      <img src="/logos/tp-mark.png" alt="Techno Pôle" />
+    <a href="#hero" class="nav__logo" data-link aria-label="TECHNO POLE — accueil">
+      <img src="/logos/tp-mark.png" alt="TECHNO POLE" />
     </a>
     <nav class="nav__links">
       <a href="#events" data-link>Dates</a>
@@ -68,7 +87,20 @@
     <a href="https://www.instagram.com/techno_pole_" target="_blank" rel="noopener" class="nav__ig" data-magnetic>
       <span>@techno_pole_</span>
     </a>
+    <button class="nav__burger" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span>
+    </button>
   </header>
+
+  <!-- ░░ MENU MOBILE (overlay plein écran) ░░ -->
+  <nav class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <a href="#events" data-link data-mobile-link>Dates</a>
+    <a href="#gallery" data-link data-mobile-link>Galerie</a>
+    <a href="#collective" data-link data-mobile-link>L'asso</a>
+    <a href="#team" data-link data-mobile-link>Le mandat</a>
+    <a href="#contact" data-link data-mobile-link>Contact</a>
+    <a href="https://www.instagram.com/techno_pole_" target="_blank" rel="noopener" class="mobile-menu__ig">@techno_pole_ ↗</a>
+  </nav>
 
   <main id="smooth-content">
 
@@ -134,7 +166,7 @@
       </div>
 
       <p class="manifesto" data-split-lines>
-        Le Techno Pôle, c'est l'association des DJs de Centrale Méditerranée. On anime
+        Le TECHNO POLE, c'est l'association des DJs de Centrale Méditerranée. On anime
         les soirées centraliennes — WEI, BDE, MSB — et on transmet le
         mix à qui veut apprendre. Une scène, trois principes, zéro compromis.
       </p>
@@ -227,7 +259,7 @@
         </div>
         <div class="footer__col footer__col--credit">
           <span class="footer__lbl">©2026</span>
-          <span>Techno Pole<br/>Tous droits réservés</span>
+          <span>TECHNO POLE<br/>Tous droits réservés</span>
         </div>
       </div>
     </footer>

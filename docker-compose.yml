@@ -16,6 +16,10 @@ services:
     image: registry.ginfo.centrale-med.fr/statiques/techno-pole:latest
     pull_policy: always
     restart: unless-stopped
+    environment:
+      # ⬇️ LE DOMAINE DU SITE — sert à l'aperçu de lien sur les réseaux (og:image).
+      #    Doit correspondre au Host(...) Traefik ci-dessous.
+      SITE_URL: "https://techno-pole.asso.centrale-med.fr"
     networks:
       - dokploy-network
     labels:

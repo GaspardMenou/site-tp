@@ -3,11 +3,13 @@ import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
-import { initHero } from './hero.js'
 import { EVENTS, GALLERY, TEAM } from './content-data.js'
 import { renderEvents, renderGallery, renderTeam } from './render.js'
 
 gsap.registerPlugin(ScrollTrigger)
+
+/* Respecte le réglage système « réduire les animations ». */
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches
 
 /* ════════════════════════════════════════════════
    1. SMOOTH SCROLL (Lenis) couplé à GSAP/ScrollTrigger
@@ -33,6 +35,15 @@ function runPreloader() {
   const counter = document.querySelector('#counter')
   const bar = document.querySelector('#bar')
   const words = document.querySelectorAll('.preloader__word span')
+
+  // Mouvement réduit : on masque le preloader immédiatement, sans compte à rebours.
+  if (REDUCED) {
+    if (pl) pl.style.display = 'none'
+    gsap.set(words, { y: 0 })
+    gsap.set('.hero__tag', { opacity: 1 })
+    lenis.start()
+    return
+  }
 
   lenis.stop()
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
@@ -140,6 +151,8 @@ function initMarquees() {
     const track = wrap.querySelector('.marquee__track')
     const dir = parseFloat(wrap.dataset.dir || '1')
     let x = 0
+    let visible = true
+    let rafId = null
     const base = 0.6 * dir
     function loop() {
       const half = track.scrollWidth / 2
@@ -147,9 +160,14 @@ function initMarquees() {
       if (x <= -half) x += half
       if (x > 0) x -= half
       track.style.transform = `translateX(${x}px)`
-      requestAnimationFrame(loop)
+      rafId = requestAnimationFrame(loop)
     }
-    loop()
+    // ne tourne que quand le marquee est à l'écran (économie CPU/batterie)
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting
+      if (visible && rafId === null) loop()
+      else if (!visible && rafId !== null) { cancelAnimationFrame(rafId); rafId = null }
+    }).observe(wrap)
   })
 }
 
@@ -274,6 +292,31 @@ function initGlitch() {
 }
 
 /* ════════════════════════════════════════════════
+   13. MENU MOBILE (overlay)
+   ════════════════════════════════════════════════ */
+function initMobileMenu() {
+  const burger = document.querySelector('#nav-burger')
+  const menu = document.querySelector('#mobile-menu')
+  if (!burger || !menu) return
+
+  const setOpen = (open) => {
+    menu.classList.toggle('open', open)
+    burger.setAttribute('aria-expanded', String(open))
+    burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu')
+    menu.setAttribute('aria-hidden', String(!open))
+    document.body.style.overflow = open ? 'hidden' : ''
+    open ? lenis.stop() : lenis.start()
+  }
+
+  burger.addEventListener('click', () => setOpen(!menu.classList.contains('open')))
+  menu.querySelectorAll('[data-mobile-link]').forEach((a) =>
+    a.addEventListener('click', () => setOpen(false)))
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu.classList.contains('open')) setOpen(false)
+  })
+}
+
+/* ════════════════════════════════════════════════
    BOOT
    ════════════════════════════════════════════════ */
 /* Génère le contenu depuis src/content-data.js — AVANT les init()
@@ -287,15 +330,24 @@ function renderContent() {
 function boot() {
   renderContent()
   prepHeroTitle()
-  initSplitReveals()
-  initMarquees()
-  initParallax()
+  initMobileMenu()
   initMagnetic()
   initTransitions()
   initHud()
-  initScramble()
-  initGlitch()
-  initHero(document.querySelector('#hero-canvas'))
+
+  if (REDUCED) {
+    // Pas d'animations d'entrée : on force tout le contenu à être visible.
+    gsap.set('[data-fade]', { opacity: 1, y: 0 })
+  } else {
+    initSplitReveals()
+    initMarquees()
+    initParallax()
+    initScramble()
+    initGlitch()
+    // Three.js chargé à la demande (chunk séparé) : n'alourdit pas le 1er rendu.
+    import('./hero.js').then(({ initHero }) => initHero(document.querySelector('#hero-canvas')))
+  }
+
   runPreloader()
   ScrollTrigger.refresh()
 }

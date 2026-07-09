@@ -92,7 +92,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .hud__corner--br { bottom: 14px; right: 14px; border-left: 0; border-top: 0; }
 .hud__readout {
   position: absolute; bottom: 18px; font-family: var(--ff-mono);
-  font-size: .68rem; letter-spacing: .05em; color: var(--acid); opacity: .8;
+  font-size: .68rem; letter-spacing: .05em; color: var(--acid); opacity: 1;
   display: flex; gap: 1rem; text-transform: uppercase;
 }
 .hud__readout--l { left: 52px; }
@@ -181,7 +181,45 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   background: currentColor; transition: width .4s var(--ease);
 }
 .nav__links a:hover::after { width: 100%; }
-@media (max-width: 720px) { .nav__links { display: none; } }
+
+/* ░░ BURGER (mobile) ░░ */
+.nav__burger {
+  display: none; position: relative; z-index: 2;
+  width: 34px; height: 34px; padding: 0;
+  background: none; border: 0; cursor: pointer;
+  flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+}
+.nav__burger span {
+  display: block; width: 24px; height: 2px; background: var(--fg);
+  transition: transform .35s var(--ease), opacity .25s;
+}
+.nav__burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+.nav__burger[aria-expanded="true"] span:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
+
+/* ░░ OVERLAY MENU MOBILE ░░ */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 7900;
+  background: var(--bg);
+  display: flex; flex-direction: column; justify-content: center;
+  gap: clamp(1.2rem, 5vh, 2.2rem); padding: var(--pad);
+  transform: translateY(-100%); transition: transform .55s var(--ease);
+  pointer-events: none;
+}
+.mobile-menu.open { transform: translateY(0); pointer-events: auto; }
+.mobile-menu a {
+  font-family: var(--ff-display); font-weight: 900; font-stretch: 125%;
+  font-size: clamp(2.4rem, 12vw, 4rem); text-transform: uppercase; line-height: 1;
+}
+.mobile-menu a:active { color: var(--acid); }
+.mobile-menu__ig {
+  font-family: var(--ff-mono) !important; font-weight: 400 !important;
+  font-stretch: normal !important; font-size: 1rem !important;
+  text-transform: none !important; color: var(--fg-dim); margin-top: 1rem;
+}
+@media (max-width: 720px) {
+  .nav__links, .nav__ig { display: none; }
+  .nav__burger { display: flex; }
+}
 
 /* ░░░░░░░ HERO ░░░░░░░ */
 .hero { position: relative; height: 100svh; width: 100%; overflow: hidden; }
@@ -247,7 +285,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
   gap: clamp(1rem, 4vw, 3rem); align-items: center;
   padding: clamp(1.4rem, 3.5vw, 2.6rem) 0;
   border-bottom: 1px solid var(--line);
-  position: relative; cursor: pointer;
+  position: relative;
   transition: padding-left .5s var(--ease), color .4s;
 }
 .ev::before {
@@ -381,16 +419,6 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .tl p { color: var(--fg-dim); font-size: .95rem; line-height: 1.5; max-width: 30ch; }
 @media (max-width: 720px) { .timeline { grid-template-columns: 1fr; } }
 
-.djs { border-top: 1px solid var(--line); padding-top: 2rem; display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem; align-items: baseline; }
-.djs__lbl { font-family: var(--ff-mono); font-size: .8rem; color: var(--fg-dim); }
-.djs__list { display: flex; flex-wrap: wrap; gap: clamp(1rem, 3vw, 2.5rem); }
-.djs__list span {
-  font-family: var(--ff-display); font-size: clamp(1.4rem, 4vw, 3rem);
-  text-transform: uppercase; -webkit-text-stroke: 1px var(--fg); color: transparent;
-  transition: color .3s; cursor: default;
-}
-.djs__list span:hover { color: var(--acid); -webkit-text-stroke-color: var(--acid); }
-
 /* ░░ ÉQUIPE / LE MANDAT ░░ */
 .roster {
   display: grid;
@@ -467,3 +495,29 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 /* ░░ reveal helpers ░░ */
 [data-fade] { opacity: 0; }
 .char, .line-inner { will-change: transform; }
+
+/* ░░ FOCUS CLAVIER ░░ */
+:focus-visible {
+  outline: 2px solid var(--acid); outline-offset: 3px; border-radius: 2px;
+}
+
+/* ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+   ACCESSIBILITÉ — mouvement réduit
+   Coupe les animations décoratives permanentes et force
+   le contenu à rester visible pour qui a activé
+   « réduire les animations » dans son OS.
+   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ */
+@media (prefers-reduced-motion: reduce) {
+  .grain, .scanlines { display: none; }
+  .glitch::before, .glitch::after { display: none; }
+  .scroll-cue svg { animation: none; }
+  .hud__readout .dot { animation: none; }
+
+  /* le contenu qui devait apparaître au scroll reste visible d'emblée */
+  [data-fade] { opacity: 1 !important; transform: none !important; }
+  .hero__title .line > *,
+  .manifesto .word,
+  .contact__cta-line > * { transform: none !important; opacity: 1 !important; }
+
+  * { scroll-behavior: auto !important; }
+}

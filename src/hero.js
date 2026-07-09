@@ -20,13 +20,11 @@ export function initHero(canvas) {
     new THREE.WireframeGeometry(geo),
     new THREE.LineBasicMaterial({ color: 0x8b5cff, transparent: true, opacity: 0.22 })
   )
-  scene.add(wire)
 
   const points = new THREE.Points(
     geo,
     new THREE.PointsMaterial({ color: 0xededdf, size: 0.022 })
   )
-  scene.add(points)
 
   const group = new THREE.Group()
   group.add(wire, points)
@@ -48,6 +46,7 @@ export function initHero(canvas) {
   addEventListener('resize', resize)
 
   let t = 0
+  let rafId = null
   function animate() {
     t += 0.01
     // déformation organique des sommets
@@ -64,13 +63,17 @@ export function initHero(canvas) {
     group.rotation.y += 0.002
     group.rotation.x += 0.0012
     // léger suivi de souris
-    group.rotation.y += (mouse.x * 0.5 - group.rotation.y % (Math.PI * 2)) * 0.0
     camera.position.x += (mouse.x * 0.8 - camera.position.x) * 0.04
     camera.position.y += (-mouse.y * 0.8 - camera.position.y) * 0.04
     camera.lookAt(0, 0, 0)
 
     renderer.render(scene, camera)
-    requestAnimationFrame(animate)
+    rafId = requestAnimationFrame(animate)
   }
-  animate()
+
+  // Pause quand le hero n'est plus à l'écran : inutile de calculer/rendre en tâche de fond.
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && rafId === null) animate()
+    else if (!e.isIntersecting && rafId !== null) { cancelAnimationFrame(rafId); rafId = null }
+  }).observe(canvas)
 }
